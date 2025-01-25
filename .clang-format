@@ -8,6 +8,10 @@ ColumnLimit: 180
 BreakBeforeBraces: Custom
 BraceWrapping:
   AfterFunction: true
+  AfterClass: true
+  AfterStruct: true
+  AfterNamespace: true
+  AfterControlStatement: true
 
 # Additional
 AlignAfterOpenBracket: AlwaysBreak

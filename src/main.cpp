@@ -1,12 +1,24 @@
-#include <iostream>
-
 #include <cmath>
 #include <cstdint>
+#include <cstdlib>
 
 #include <gsl/gsl>
 
-int main(std::int32_t argc, gsl::zstring* argv)
+#include <GLFW/glfw3.h>
+
+#include "src/glfw_initialization.h"
+
+std::int32_t main(std::int32_t argc, gsl::zstring* argv)
 {
-  std::cout << "Hello World!" << std::endl;
-  return 0;
+  veng::GlfwInitialization _glfw;
+
+  gsl::not_null<GLFWwindow*> window = glfwCreateWindow(800, 600, "Vulkan Engine", nullptr, nullptr);
+  gsl::final_action _cleanup_window([window]() -> void { glfwDestroyWindow(window); });
+
+  while (!glfwWindowShouldClose(window))
+  {
+    glfwPollEvents();
+  }
+
+  return EXIT_SUCCESS;
 }
