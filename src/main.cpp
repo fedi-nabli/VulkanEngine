@@ -1,15 +1,17 @@
 #include <GLFW/glfw3.h>
 
 #include "src/glfw_initialization.h"
+#include "src/glfw_monitor.h"
+#include "src/glfw_window.h"
 
 std::int32_t main(std::int32_t argc, gsl::zstring* argv)
 {
   const veng::GlfwInitialization _glfw;
 
-  gsl::not_null<GLFWwindow*> window = glfwCreateWindow(800, 600, "Vulkan Engine", nullptr, nullptr);
-  gsl::final_action _cleanup_window([window]() -> void { glfwDestroyWindow(window); });
+  veng::Window window("Vulkan Engine", {800, 600});
+  window.TryMoveToMonitor(0);
 
-  while (!glfwWindowShouldClose(window))
+  while (!window.ShouldClose())
   {
     glfwPollEvents();
   }

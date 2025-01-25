@@ -12,6 +12,7 @@ BraceWrapping:
   AfterStruct: true
   AfterNamespace: true
   AfterControlStatement: true
+  BeforeElse: true
 
 # Additional
 AlignAfterOpenBracket: AlwaysBreak
