@@ -1,5 +1,7 @@
 #include "src/glfw_initialization.h"
 
+#include "src/precomp.h"
+
 #include <GLFW/glfw3.h>
 
 namespace veng

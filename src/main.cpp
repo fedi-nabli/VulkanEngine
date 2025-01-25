@@ -1,7 +1,8 @@
 #include <GLFW/glfw3.h>
 
+#include "src/precomp.h"
+
 #include "src/glfw_initialization.h"
-#include "src/glfw_monitor.h"
 #include "src/glfw_window.h"
 
 std::int32_t main(std::int32_t argc, gsl::zstring* argv)
@@ -13,7 +14,7 @@ std::int32_t main(std::int32_t argc, gsl::zstring* argv)
 
   while (!window.ShouldClose())
   {
-    glfwPollEvents();
+    glfwPollEvents(); // not window specific
   }
 
   return EXIT_SUCCESS;

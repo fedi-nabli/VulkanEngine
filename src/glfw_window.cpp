@@ -1,12 +1,16 @@
 #include "src/glfw_window.h"
 #include "src/glfw_monitor.h"
 
+#include "src/precomp.h"
+
 #include <GLFW/glfw3.h>
 
 namespace veng
 {
 Window::Window(gsl::czstring name, glm::ivec2 size)
 {
+  glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
+  glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
   window_ = glfwCreateWindow(size.x, size.y, name, nullptr, nullptr);
   if (window_ == nullptr)
   {

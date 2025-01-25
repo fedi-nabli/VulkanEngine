@@ -1,6 +1,8 @@
 #include "src/precomp.h"
 #include "src/glfw_monitor.h"
 
+#include "src/precomp.h"
+
 #include <GLFW/glfw3.h>
 
 namespace veng
