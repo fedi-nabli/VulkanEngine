@@ -2,6 +2,8 @@
 
 #include <src/glfw_window.h>
 
+#include <vector>
+
 #include <vulkan/vulkan.h>
 
 namespace veng
@@ -15,7 +17,8 @@ class Graphics final
  private:
   void InitializeVulkan();
   void CreateInstance();
-  gsl::span<gsl::czstring> GetSuggestedExtensions();
+  static gsl::span<gsl::czstring> GetSuggestedInstanceExtensions();
+  static std::vector<VkExtensionProperties> GetSupportedInstanceExtensions();
 
   VkInstance instance_ = nullptr;
   gsl::not_null<Window*> window_;

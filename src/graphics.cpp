@@ -20,7 +20,18 @@ void Graphics::InitializeVulkan() { CreateInstance(); }
 
 void Graphics::CreateInstance()
 {
-  gsl::span<gsl::czstring> suggested_extensions = GetSuggestedExtensions();
+  gsl::span<gsl::czstring> suggested_extensions = GetSuggestedInstanceExtensions();
+  std::vector<VkExtensionProperties> supported_extensions = GetSupportedInstanceExtensions();
+
+  auto is_extension_supported = [&supported_extensions](gsl::czstring name) {
+    return std::any_of(
+        supported_extensions.begin(), supported_extensions.end(), [name](const VkExtensionProperties& property) { return std::strcmp(property.extensionName, name) == 0; });
+  };
+
+  if (!std::all_of(suggested_extensions.begin(), suggested_extensions.end(), is_extension_supported))
+  {
+    std::exit(EXIT_FAILURE);
+  }
 
   VkApplicationInfo app_info = {};
   app_info.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
@@ -46,12 +57,39 @@ void Graphics::CreateInstance()
   }
 }
 
-gsl::span<gsl::czstring> Graphics::GetSuggestedExtensions()
+gsl::span<gsl::czstring> Graphics::GetSuggestedInstanceExtensions()
 {
   std::uint32_t glfw_extension_count = 0;
   gsl::czstring* glfw_extensions;
 
   glfw_extensions = glfwGetRequiredInstanceExtensions(&glfw_extension_count);
   return {glfw_extensions, glfw_extension_count};
+}
+
+std::vector<VkExtensionProperties> Graphics::GetSupportedInstanceExtensions()
+{
+  std::uint32_t count;
+  VkResult result = vkEnumerateInstanceExtensionProperties(nullptr, &count, nullptr);
+
+  if (result != VK_SUCCESS)
+  {
+    std::printf("Failed to enumerate instance extension count");
+    std::exit(EXIT_FAILURE);
+  }
+
+  if (count == 0)
+  {
+    return {};
+  }
+
+  std::vector<VkExtensionProperties> properties(count);
+  result = vkEnumerateInstanceExtensionProperties(nullptr, &count, properties.data());
+  if (result != VK_SUCCESS)
+  {
+    std::printf("Failed to enumerate instance extensions");
+    std::exit(EXIT_FAILURE);
+  }
+
+  return properties;
 }
 }  // namespace veng
