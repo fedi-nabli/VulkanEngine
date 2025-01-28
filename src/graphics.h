@@ -19,6 +19,9 @@ class Graphics final
   void CreateInstance();
   static gsl::span<gsl::czstring> GetSuggestedInstanceExtensions();
   static std::vector<VkExtensionProperties> GetSupportedInstanceExtensions();
+  static bool ExtensionMatchesName(gsl::czstring name, const VkExtensionProperties& properties);
+  static bool IsExtensionSupported(gsl::span<VkExtensionProperties> extensions, gsl::czstring name);
+  static bool AreAllExtensionsSupported(gsl::span<gsl::czstring> extensions);
 
   VkInstance instance_ = nullptr;
   gsl::not_null<Window*> window_;

@@ -21,14 +21,8 @@ void Graphics::InitializeVulkan() { CreateInstance(); }
 void Graphics::CreateInstance()
 {
   gsl::span<gsl::czstring> suggested_extensions = GetSuggestedInstanceExtensions();
-  std::vector<VkExtensionProperties> supported_extensions = GetSupportedInstanceExtensions();
 
-  auto is_extension_supported = [&supported_extensions](gsl::czstring name) {
-    return std::any_of(
-        supported_extensions.begin(), supported_extensions.end(), [name](const VkExtensionProperties& property) { return std::strcmp(property.extensionName, name) == 0; });
-  };
-
-  if (!std::all_of(suggested_extensions.begin(), suggested_extensions.end(), is_extension_supported))
+  if (!AreAllExtensionsSupported(suggested_extensions))
   {
     std::exit(EXIT_FAILURE);
   }
@@ -91,5 +85,18 @@ std::vector<VkExtensionProperties> Graphics::GetSupportedInstanceExtensions()
   }
 
   return properties;
+}
+
+bool Graphics::ExtensionMatchesName(gsl::czstring name, const VkExtensionProperties& properties) { return veng::streq(properties.extensionName, name); }
+
+bool Graphics::IsExtensionSupported(gsl::span<VkExtensionProperties> extensions, gsl::czstring name)
+{
+  return std::any_of(extensions.begin(), extensions.end(), std::bind_front(ExtensionMatchesName, name));
+}
+
+bool Graphics::AreAllExtensionsSupported(gsl::span<gsl::czstring> extensions)
+{
+  std::vector<VkExtensionProperties> supported_extensions = GetSupportedInstanceExtensions();
+  return std::all_of(extensions.begin(), extensions.end(), std::bind_front(IsExtensionSupported, supported_extensions));
 }
 }  // namespace veng
