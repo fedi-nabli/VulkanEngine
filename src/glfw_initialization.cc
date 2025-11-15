@@ -1,7 +1,5 @@
 #include "glfw_initialization.h"
 
-#include <cstdlib>
-
 #include <GLFW/glfw3.h>
 
 namespace veng

@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "name": "Mac",
+            "includePath": [
+                "${workspaceFolder}/**"
+            ],
+            "configurationProvider": "ms-vscode.cmake-tools",
+            "defines": [],
+            "cStandard": "c17"
+        }
+    ],
+    "version": 4
+}
