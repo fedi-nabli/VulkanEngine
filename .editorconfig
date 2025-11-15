@@ -1,0 +1,13 @@
+root = true
+[*.{cc,h,cpp,c}]
+indent_style = space
+indent_size = 2
+tab_width = 2
+insert_final_newline = true
+charset = utf-8
+trim_trailing_whitespace = true
+
+[*.{vert,frag,glsl}]
+indent_style = space
+indent_size = 4
+tab_width = 4

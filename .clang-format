@@ -1,0 +1,29 @@
+# Google C/C++ Code Style Setting Inspired
+
+Language: Cpp
+BasedOnStyle: Google
+Standard: c++20
+UseTab: Never
+ColumnLimit: 180
+
+BreakBeforeBraces: Allman
+BraceWrapping:
+  AfterClass: true
+  AfterControlStatement: true
+  AfterEnum: true
+  AfterFunction: true
+  AfterNamespace: true
+  AfterStruct: true
+  AfterUnion: true
+  BeforeElse: true
+  IndentBraces: false
+
+AlignAfterOpenBracket: true
+AllowShortBlocksOnASingleLine: Empty
+AllowShortFunctionsOnASingleLine: InlineOnly
+AllowShortLoopsOnASingleLine: false
+AllowShortLambdaOnASingleLine: Empty
+
+InsertBraces: true
+ExperimentalAutoDetectBinPacking: true
+SortIncludes: false
